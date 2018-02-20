@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PlatformNotificationDemo</string>
+    <string name="title_activity_bill_ready">BillReady</string>
+    <string name="action_settings">Settings</string>
 </resources>
