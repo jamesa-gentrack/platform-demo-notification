@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, BillReadyActivity.class);
-                intent.putExtra("notificationId", "hello");
+                intent.putExtra("accountId", "1123456");
                 startActivity(intent);
             }
         });
