@@ -39,10 +39,10 @@ public class BillReadyActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton payNowButton = (FloatingActionButton) this.findViewById(R.id.bill_ready_pay_now);
-        payNowButton.setImageBitmap(textAsBitmap("Pay", 40, Color.WHITE));
+        payNowButton.setImageBitmap(textAsBitmap("Pay", 60, Color.WHITE));
         payNowButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(BillReadyActivity.this, "Your payment has been received. Thank you.", Toast.LENGTH_LONG).show();
+                Toast.makeText(BillReadyActivity.this, "Your payment has been received. Thank you!", Toast.LENGTH_LONG).show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

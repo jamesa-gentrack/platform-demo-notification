@@ -100,7 +100,7 @@ app.post('/webhook', (req, res) => {
 	const pushPayload = {
 		'name': 'BillReadyPushNotification',
 		'notification': {
-			'alert': 'Your latest monthly bill is ready. Click to view.'
+			'alert': 'Your latest monthly bill is ready. Click here to see details.'
 		},
 		'image': image,
 		'custom_keys': customData,

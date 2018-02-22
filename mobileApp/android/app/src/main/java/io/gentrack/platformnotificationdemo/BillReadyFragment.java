@@ -60,16 +60,16 @@ public class BillReadyFragment extends Fragment {
     private void updateDetails(View view, JSONObject payload) throws JSONException {
         TextView accountIDText = (TextView) view.findViewById(R.id.bill_ready_details_account_id);
         String accountId = payload.getString("accountId");
-        accountIDText.setText(String.format("Account Id: %s", accountId));
+        accountIDText.setText(String.format("Account No: %s", accountId));
 
-        TextView dueAmount = (TextView) view.findViewById(R.id.bill_ready_details_due_amount);
-        dueAmount.setText(payload.getString("dueAmount"));
+        TextView dueAmount = (TextView) view.findViewById(R.id.bill_ready_due_amount);
+        dueAmount.setText("$" + payload.getString("dueAmount"));
 
         String dueDate = payload.getString("dueDate");
         String accountName = payload.getString("accountName");
-        String description = String.format("%s, your bill is due at <b>%s</b>.", accountName, dueDate);
+        String description = String.format("Due by <b>%s</b>", dueDate);
 
-        TextView descriptionText = (TextView) view.findViewById(R.id.bill_ready_details_description);
+        TextView descriptionText = (TextView) view.findViewById(R.id.bill_ready_due_date);
         descriptionText.setText(Html.fromHtml(description, Html.FROM_HTML_MODE_LEGACY));
     }
 
@@ -78,7 +78,7 @@ public class BillReadyFragment extends Fragment {
         Date balanceDate = df.parse(payload.getString("balanceDate"));
         JSONArray recentConsumptions = payload.getJSONArray("recentConsumptions");
         float range = 0;
-        ArrayList <BarEntry> entries = new ArrayList <BarEntry>();
+        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
         for (int i = 0; i < recentConsumptions.length(); ++i) {
             String item = recentConsumptions.getString(i);
             float val = Float.parseFloat(item);
@@ -95,7 +95,7 @@ public class BillReadyFragment extends Fragment {
         chart.setDrawBarShadow(false);
         chart.setDrawValueAboveBar(true);
         chart.getDescription().setEnabled(false);
-        chart.setMaxVisibleValueCount(5);
+        chart.setMaxVisibleValueCount(recentConsumptions.length());
         chart.setPinchZoom(false);
         chart.setDrawGridBackground(false);
 
@@ -123,9 +123,9 @@ public class BillReadyFragment extends Fragment {
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
         } else {
-            dataSet = new BarDataSet(entries, "Recent Electricity Monthly Consumption");
+            dataSet = new BarDataSet(entries, "Electricity Monthly Consumption History");
             dataSet.setDrawIcons(false);
-            ArrayList <IBarDataSet> dataSets = new ArrayList <IBarDataSet>();
+            ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
             dataSets.add(dataSet);
             BarData data = new BarData(dataSets);
             data.setValueTextSize(20f);
