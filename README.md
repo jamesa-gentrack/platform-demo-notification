@@ -4,12 +4,10 @@
 This repository demonstrates integration between [Gentrack Platform](https://help.gentrack.com/platform) and [Taplytics](https://taplytics.com/).
 
 The use case is:
+
 1. A bill is generated in a Gentrack core system, Velocity or Junifer.
-
 2. A event is triggered and published to the Gentrack Platform.
-
 3. The Gentrack Platform publishes the event to a registered customer webhook.
-
 4. The webhook sends a statement to an individual customer via a push notification to an Android app.
 
 ### Source File Structure
