@@ -14,9 +14,10 @@ bill ready push notifications to an Android application.
 
 ### Deploy webhook to Heroku
 1. Environment variables:
-`heroku config:add PUBLIC_KEY="$(cat ~/pubkey.pem)"``
-`heroku config:set TAPLYTICS_API_TOKEN="TAPLYTICS REST API PRIVATE KEY"`
-`pubkey.pem` is the public key for the application which can be obtained from the platform developer portal.
+    * `heroku config:add PUBLIC_KEY="$(cat ~/pubkey.pem)"``
+        * pubkey.pem` is the public key for the application which can be obtained from the platform developer portal.
+    * `heroku config:set TAPLYTICS_API_TOKEN="TAPLYTICS REST API PRIVATE KEY"`
+
 
 #### Build Android Application
 1. Download and isntall Android Studio 3.0.
