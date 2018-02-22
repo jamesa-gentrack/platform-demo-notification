@@ -5,8 +5,11 @@ This repository demonstrates integration between [Gentrack Platform](https://hel
 
 The use case is:
 1. A bill is generated in a Gentrack core system, Velocity or Junifer.
+
 2. A event is triggered and published to the Gentrack Platform.
+
 3. The Gentrack Platform publishes the event to a registered customer webhook.
+
 4. The webhook sends a statement to an individual customer via a push notification to an Android app.
 
 ### Source File Structure
@@ -21,7 +24,7 @@ The use case is:
  * For webhook: `TAPLYTICS REST API PRIVATE KEY`
 
 ### Deploy webhook to Heroku
-1. Deployment
+* Deployment
     1. Clone the repository and enter the directory
     2. Run the following commands:
     ```
@@ -31,8 +34,8 @@ The use case is:
     ```
     3. Test the URL in a browser, e.g, `http://my-app.herokuapp.com`.
     The webhook URL will be `http://myapp.herokuapp.com/webhook`
-2. Environment variables:
-    * `heroku config:add PUBLIC_KEY="$(cat ~/pubkey.pem)"``
+* Environment variables:
+    * `heroku config:add PUBLIC_KEY="$(cat ~/pubkey.pem)"`
         * pubkey.pem` is a text file containing the public key for the application which can be obtained from the platform developer portal.
     * `heroku config:set TAPLYTICS_API_TOKEN="TAPLYTICS REST API PRIVATE KEY"`
 
