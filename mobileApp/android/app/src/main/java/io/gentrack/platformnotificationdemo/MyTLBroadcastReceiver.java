@@ -1,7 +1,8 @@
 package io.gentrack.platformnotificationdemo;
+
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+
 import com.taplytics.sdk.TLGcmBroadcastReceiver;
 
 /**

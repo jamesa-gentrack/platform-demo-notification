@@ -2,10 +2,12 @@ package io.gentrack.platformnotificationdemo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.JsonReader;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -20,9 +22,11 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,121 +35,105 @@ import java.util.Date;
 
 public class BillReadyFragment extends Fragment {
 
-    private final int mMonthCount = 5;
-    private BarChart mChart;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bill_ready, container, false);
-        mChart = (BarChart) view.findViewById(R.id.billReadyBarChart);
         try {
-            Bundle bundle = getActivity().getIntent().getExtras();
-            String custom_keys = bundle.get("custom_keys").toString();
-            JSONObject payload = new JSONObject(custom_keys);
+            JSONObject payload = getPayload();
+            updateDetails(view, payload);
+            updateConsumptionChart(view, payload);
 
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            Date balanceDate = df.parse(payload.getString("balanceDate"));
-
-            JSONArray recentConsumptions = payload.getJSONArray("recentConsumptions");
-
-            float range = 0;
-            ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
-            for(int i = 0; i < recentConsumptions.length(); ++i) {
-                String item = recentConsumptions.getString(i);
-                float val = Float.parseFloat(item);
-                if(i == 0) {
-                    range = val;
-                } if (range < val) {
-                    range = val;
-                }
-                entries.add(new BarEntry(i, val));
-            }
-            configChart(balanceDate, entries, range);
-        } catch(Exception e) {
-
+        } catch (Exception e) {
+            System.err.println(e);
+            Toast.makeText(getActivity(), "Unexpected payload: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return view;
     }
 
-    private void configChart(Date endDate, ArrayList<BarEntry> entries, float range) {
-        mChart.setDrawBarShadow(false);
-        mChart.setDrawValueAboveBar(true);
-        mChart.getDescription().setEnabled(false);
-        mChart.setMaxVisibleValueCount(5);
-        mChart.setPinchZoom(false);
-        mChart.setDrawGridBackground(false);
+    private JSONObject getPayload() throws JSONException {
+        Bundle bundle = getActivity().getIntent().getExtras();
+        String custom_keys = bundle.get("custom_keys").toString();
+        return new JSONObject(custom_keys);
+    }
 
-        XAxis xAxis = mChart.getXAxis();
+    private void updateDetails(View view, JSONObject payload) throws JSONException {
+        TextView accountIDText = (TextView) view.findViewById(R.id.bill_ready_details_account_id);
+        String accountId = payload.getString("accountId");
+        accountIDText.setText(String.format("Account Id: %s", accountId));
+
+        TextView dueAmount = (TextView) view.findViewById(R.id.bill_ready_details_due_amount);
+        dueAmount.setText(payload.getString("dueAmount"));
+
+        String dueDate = payload.getString("dueDate");
+        String accountName = payload.getString("accountName");
+        String description = String.format("%s, your bill is due at <b>%s</b>.", accountName, dueDate);
+
+        TextView descriptionText = (TextView) view.findViewById(R.id.bill_ready_details_description);
+        descriptionText.setText(Html.fromHtml(description, Html.FROM_HTML_MODE_LEGACY));
+    }
+
+    private void updateConsumptionChart(View view, JSONObject payload) throws JSONException, ParseException {
+        final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date balanceDate = df.parse(payload.getString("balanceDate"));
+        JSONArray recentConsumptions = payload.getJSONArray("recentConsumptions");
+        float range = 0;
+        ArrayList <BarEntry> entries = new ArrayList <BarEntry>();
+        for (int i = 0; i < recentConsumptions.length(); ++i) {
+            String item = recentConsumptions.getString(i);
+            float val = Float.parseFloat(item);
+            if (i == 0) {
+                range = val;
+            }
+            if (range < val) {
+                range = val;
+            }
+            entries.add(new BarEntry(i, val));
+        }
+
+        BarChart chart = (BarChart) view.findViewById(R.id.bill_ready_consumption_chart);
+        chart.setDrawBarShadow(false);
+        chart.setDrawValueAboveBar(true);
+        chart.getDescription().setEnabled(false);
+        chart.setMaxVisibleValueCount(5);
+        chart.setPinchZoom(false);
+        chart.setDrawGridBackground(false);
+
+        XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // only intervals of 1 day
         xAxis.setLabelCount(entries.size());
-        xAxis.setValueFormatter(new XAxisMonthFormatter(endDate, entries.size()));
+        xAxis.setValueFormatter(new XAxisMonthFormatter(balanceDate, entries.size()));
 
-        YAxis leftAxis = mChart.getAxisLeft();
+        YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setLabelCount(5, false);
         leftAxis.setPosition(YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setSpaceTop(15f);
         leftAxis.setAxisMinimum(0f);
-        leftAxis.setAxisMaximum((int)(Math.ceil(range * 1.2f/10)) * 10);
+        leftAxis.setAxisMaximum((int) (Math.ceil(range * 1.2f / 10)) * 10);
         leftAxis.setValueFormatter(new YAxisUsageFormatter());
 
-        mChart.getAxisRight().setEnabled(false);
+        chart.getAxisRight().setEnabled(false);
 
         BarDataSet dataSet;
-
-        if (mChart.getData() != null &&
-                mChart.getData().getDataSetCount() > 0) {
-            dataSet = (BarDataSet) mChart.getData().getDataSetByIndex(0);
+        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
+            dataSet = (BarDataSet) chart.getData().getDataSetByIndex(0);
             dataSet.setValues(entries);
-            mChart.getData().notifyDataChanged();
-            mChart.notifyDataSetChanged();
+            chart.getData().notifyDataChanged();
+            chart.notifyDataSetChanged();
         } else {
-            dataSet = new BarDataSet(entries, "Your monthly electricity consumption");
+            dataSet = new BarDataSet(entries, "Recent Electricity Monthly Consumption");
             dataSet.setDrawIcons(false);
-            ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
+            ArrayList <IBarDataSet> dataSets = new ArrayList <IBarDataSet>();
             dataSets.add(dataSet);
             BarData data = new BarData(dataSets);
             data.setValueTextSize(20f);
             data.setBarWidth(0.9f);
 
-            mChart.setData(data);
+            chart.setData(data);
         }
 
-    }
-
-    private void setData(int count, float range) {
-
-        float start = 1f;
-
-        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
-
-        for (int i = (int) start; i < start + count; i++) {
-            float mult = (range + 1);
-            float val = (float) (Math.random() * mult);
-            entries.add(new BarEntry(i, val));
-        }
-
-        BarDataSet dataSet;
-
-        if (mChart.getData() != null &&
-                mChart.getData().getDataSetCount() > 0) {
-            dataSet = (BarDataSet) mChart.getData().getDataSetByIndex(0);
-            dataSet.setValues(entries);
-            mChart.getData().notifyDataChanged();
-            mChart.notifyDataSetChanged();
-        } else {
-            dataSet = new BarDataSet(entries, "Your monthly electricity consumption");
-            dataSet.setDrawIcons(false);
-            ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
-            dataSets.add(dataSet);
-            BarData data = new BarData(dataSets);
-            data.setValueTextSize(20f);
-            data.setBarWidth(0.9f);
-
-            mChart.setData(data);
-        }
     }
 
     private class XAxisMonthFormatter implements IAxisValueFormatter {
@@ -164,7 +152,7 @@ public class BillReadyFragment extends Fragment {
             if (value < mNumMonth && value >= 0) {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(mEndDate);
-                cal.add(Calendar.MONTH, - mNumMonth + 1 + Math.round(value));
+                cal.add(Calendar.MONTH, -mNumMonth + 1 + Math.round(value));
                 return simpleDateFormat.format(cal.getTime());
             }
             return "";

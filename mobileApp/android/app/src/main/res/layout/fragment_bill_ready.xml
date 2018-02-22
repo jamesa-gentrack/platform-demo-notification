@@ -1,13 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_bill_ready"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="io.gentrack.platformnotificationdemo.BillReadyFragment"
     tools:showIn="@layout/activity_bill_ready">
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        <TextView
+            android:id="@+id/bill_ready_details_account_id"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Balance"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bill_ready_details_due_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$123.5"
+            android:textColor="@color/colorAccent"
+            android:textSize="48sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/bill_ready_details_description"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Your monthly bill is due on 22/02/2018"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+    </LinearLayout>
+
     <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/billReadyBarChart"
+        android:id="@+id/bill_ready_consumption_chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>
