@@ -18,13 +18,14 @@ The use case is:
 ### Sign up a Taplytics account
 1. Add a new APP.  Then follow the instructions to set up the Taplytics SDK integration in the Android project.
 2. Obtain the SDK/API keys for the application from `Open Settings/Project Settings`.
+
  * For Android App: `TAPLYTICS ISO/ANDROID SDK KEY` and `TAPLYTICS ISO/ANDROID URL SCHEME`
  * For webhook: `TAPLYTICS REST API PRIVATE KEY`
 
 ### Deploy webhook to Heroku
 * Deployment
-    1. Clone the repository and enter the directory
-    2. Run the following commands:
+    1. Clone the repository and cd into the directory
+    2. Download heroku cli and deploy the application. See [Deploying Node.js Apps on Heroku](https://devcenter.heroku.com/articles/deploying-nodejs#deploy-your-application-to-heroku)
     ```
         heroku login
         heroku create
