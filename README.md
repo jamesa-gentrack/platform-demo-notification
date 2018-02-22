@@ -16,8 +16,9 @@ The use case is:
 2. mobile/App/Android -  A sample Android application that registers and receives bill ready notifications and displays a bill statement.
 
 ### Sign up a Taplytics account
-1. Add a new APP.  Then follow the instructions to set up the Taplytics SDK integration in the Android project.
-2. Obtain the SDK/API keys for the application from `Open Settings/Project Settings`.
+1. Add a new APP.  Then follow the instructions to set up the Taplytics SDK integration in the Android project. *Note*: A google account is required to set up [Google Push Certificates](https://taplytics.com/docs/guides/push-notifications/google-push-certificates).
+
+2. Obtain the SDK/API keys for the APP from `Open Settings/Project Settings` on Taplytics.
 
  * For Android App: `TAPLYTICS ISO/ANDROID SDK KEY` and `TAPLYTICS ISO/ANDROID URL SCHEME`
  * For webhook: `TAPLYTICS REST API PRIVATE KEY`
