@@ -1,10 +1,18 @@
-### Platform Push Notification Demo
+## Platform Push Notification Demo
 
-This repository contains two applications demonstrateing the integration between [Gentrack Platform](https://help.gentrack.com/platform) and [Taplytics](https://taplytics.com/), for sending
-bill ready push notifications to an Android application.
+### Introduction
+This repository demonstrates integration between [Gentrack Platform](https://help.gentrack.com/platform) and [Taplytics](https://taplytics.com/).
 
-1. webhook - a NodeJs/Express webhook application that receives bill ready notifications from the Platform and then send push notifications to registered devices via Taplytics APIs.
-2. mobile/App/Android -  An android application that registers and receives bill ready notifications and displays a bill statement.
+The use case is:
+1. A bill is generated in a Gentrack core system, Velocity or Junifer.
+2. A event is triggered and published to the Gentrack Platform.
+3. The Gentrack Platform publishes the event to a registered customer webhook.
+4. The webhook sends a statement to an individual customer via a push notification to an Android app.
+
+### Source File Structure
+
+1. webhook - a sample NodeJs/Express application that receives bill ready events from the Platform and then sends push notifications to registered devices via Taplytics APIs.
+2. mobile/App/Android -  A sample Android application that registers and receives bill ready notifications and displays a bill statement.
 
 ### Sign up a Taplytics account
 1. Add a new APP.  Then follow the instructions to set up the Taplytics SDK integration in the Android project.
