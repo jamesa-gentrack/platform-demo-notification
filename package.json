@@ -21,8 +21,9 @@
   "keywords": [
     "platform",
     "node",
+    "express",
     "heroku",
-    "express"
+    "taplytics"
   ],
   "license": "MIT"
 }

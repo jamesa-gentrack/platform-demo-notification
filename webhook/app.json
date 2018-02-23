@@ -1,7 +1,0 @@
-{
-  "name": "Platform Push Notification Demo - Webhook",
-  "description": "A platform webhook in NodeJs",
-  "repository": "FIXME",
-  "logo": "https://www.gentrack.com/wp-content/themes/gentrack/img/gentrack-logo.svg",
-  "keywords": ["platform", "push notification", "node", "express", "heroku"]
-}

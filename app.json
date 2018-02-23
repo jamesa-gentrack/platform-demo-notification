@@ -1,0 +1,15 @@
+{
+  "name": "Platform Demo - Bill Notification",
+  "description": "Demo app that uses Taplytics to notify customers of new bills.",
+  "image": "heroku/nodejs",
+  "keywords": ["nodejs", "express", "taplytics", "example-app"],
+  "logo": "https://www.gentrack.com/wp-content/themes/gentrack/img/gentrack-logo.svg",
+  "env": {
+    "PUBLIC_KEY": {
+      "description": "Platform application public key"
+    },
+    "TAPLYTICS_API_TOKEN": {
+      "description": "Taplytics API key"
+    }
+  }
+}
