@@ -11,6 +11,7 @@ The use case is:
 4. The webhook sends a statement to an individual customer via a push notification to an Android app.
 
 This repository contains:
+
 1. webhook - a sample NodeJs/Express application that receives bill ready events from the Platform and then sends push notifications to registered devices via Taplytics APIs.
 2. Android App -  A sample Android application that registers and receives bill ready notifications and displays a bill statement.
 
