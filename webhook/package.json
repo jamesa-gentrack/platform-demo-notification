@@ -1,7 +1,7 @@
 {
-  "name": "platform-push-notification-demo",
-  "version": "0.3.0",
-  "description": "A sample webhook that sends push notification",
+  "name": "platform-taplytics-push-demo",
+  "version": "0.1.0",
+  "description": "Sample application that sends push notification to mobile devices",
   "engines": {
     "node": "8.9.1"
   },
@@ -13,10 +13,6 @@
     "body-parser": "^1.18.2",
     "express": "^4.15.2",
     "node-fetch": "^2.0.0"
-  },
-  "devDependencies": {
-    "request": "^2.81.0",
-    "tape": "^4.7.0"
   },
   "repository": {
     "type": "git",
