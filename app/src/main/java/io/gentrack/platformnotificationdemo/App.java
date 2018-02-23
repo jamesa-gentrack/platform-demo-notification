@@ -12,7 +12,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Taplytics.startTaplytics(this, "79084317b3c0a5e8fc2ccf731a1fd433d76f0a72");
+        Taplytics.startTaplytics(this, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         Taplytics.setTaplyticsPushTokenListener(new TaplyticsPushTokenListener() {
             @Override
             public void pushTokenReceived(String token) {
