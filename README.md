@@ -10,18 +10,33 @@ The use case is:
 3. The Gentrack Platform publishes the event to a registered customer webhook.
 4. The webhook sends a statement to an individual customer via a push notification to an Android app.
 
-### Source File Structure
-
+This repository contains:
 1. webhook - a sample NodeJs/Express application that receives bill ready events from the Platform and then sends push notifications to registered devices via Taplytics APIs.
-2. mobile/App/Android -  A sample Android application that registers and receives bill ready notifications and displays a bill statement.
+2. Android App -  A sample Android application that registers and receives bill ready notifications and displays a bill statement.
 
-### Sign up a Taplytics account
-1. Add a new APP.  Then follow the instructions to set up the Taplytics SDK integration in the Android project. *Note*: A google account is required to set up [Google Push Certificates](https://taplytics.com/docs/guides/push-notifications/google-push-certificates).
-
-2. Obtain the SDK/API keys for the APP from `Open Settings/Project Settings` on Taplytics.
-
- * For Android App: `TAPLYTICS ISO/ANDROID SDK KEY` and `TAPLYTICS ISO/ANDROID URL SCHEME`
- * For webhook: `TAPLYTICS REST API PRIVATE KEY`
+#### Build Android Application
+1. Download and install the latest Android Studio 3.
+2. Sign up an account and create an app on Taplytics.
+3. At the `SDK integration` step on the welcome page for the Taplytics App, select `Android/TV/FIre TV`. Find `TAPLYTICS ISO/ANDROID SDK KEY` and `TAPLYTICS ISO/ANDROID URL SCHEME`.
+4. Replace the values in Android app:
+    * TAPLYTICS ISO/ANDROID SDK KEY
+    ```
+    File: app\src\main\java\io\gentrack\platformnotificationdemo\App.java
+    ...
+    Taplytics.startTaplytics(this, "#########");
+    ...
+    ```
+    * TAPLYTICS ISO/ANDROID URL SCHEME
+    ```
+    File: app\src\main\AndroidManifest.xml
+    ...
+    <data android:scheme="##########" />
+    ```
+5. Build and run the application.
+6. When testing the application in an Emulator, it requies an image with `API level = 24 and Target = Android 7.0(Google APIs)`. In addition, you need to log in to a google account in the emulator in order to receive notifications.
+7. Open the App on Taplytics. It should now display to a dashboard.
+8. Set up [Google Push Certificates](https://taplytics.com/docs/guides/push-notifications/google-push-certificates) for the APP.
+9. Restart the Android App.
 
 ### Deploy webhook to Heroku
 * Deployment
@@ -39,26 +54,6 @@ The use case is:
         * pubkey.pem` is a text file containing the public key for the application which can be obtained from the platform developer portal.
     * `heroku config:set TAPLYTICS_API_TOKEN="TAPLYTICS REST API PRIVATE KEY"`
 
-
-#### Build Android Application
-1. Download and isntall Android Studio 3.0.
-2. Open the project `mobileApp/android`. Replace TAPLYTICS ISO/ANDROID SDK KEY` and `TAPLYTICS ISO/ANDROID URL SCHEME` with keys obtained in the previous step in the source code.
-
-    * TAPLYTICS ISO/ANDROID SDK KEY
-    ```
-    File: mobileApp\android\app\src\main\java\io\gentrack\platformnotificationdemo\App.java
-    ...
-    Taplytics.startTaplytics(this, "#########");
-    ...
-    ```    
-    * TAPLYTICS ISO/ANDROID URL SCHEME
-    ```
-    File: mobileApp\android\app\src\main\AndroidManifest.xml
-    ...
-    <data android:scheme="##########" />
-    ```
-3. Build and run the application.
-4. When testing the application in an Emulator, it requies an image with `API level = 24 and Target = Android 7.0(Google APIs)`. In addition, you need to log in to a google account in the emulator in order to receive notifications.
 
 #### Send notifications from Developer Portal
 1. Create a new application in Developer.
