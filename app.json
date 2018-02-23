@@ -4,6 +4,7 @@
   "image": "heroku/nodejs",
   "keywords": ["nodejs", "express", "taplytics", "example-app"],
   "logo": "https://www.gentrack.com/wp-content/themes/gentrack/img/gentrack-logo.svg",
+  "buildpacks": [{"url": "heroku/nodejs"}],
   "env": {
     "PUBLIC_KEY": {
       "description": "Platform application public key"
