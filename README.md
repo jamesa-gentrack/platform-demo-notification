@@ -6,14 +6,15 @@ This repository demonstrates integration between [Gentrack Platform](https://hel
 The use case is:
 
 1. A bill is generated in a Gentrack core system, Velocity or Junifer.
-2. A event is triggered and published to the Gentrack Platform.
-3. The Gentrack Platform publishes the event to a registered *webhook*.
-4. The webhook sends a statement to an individual customer via a push notification to an Android app.
+2. The core system triggers an event and published to the Gentrack Platform.
+3. The Gentrack Platform sends the event to a registered *webhook*.
+4. The webhook pushes a notification to an *Android app* running on the customer's phone.
+5. When the customer receives and taps the notification, the Android app displays a statement to the customer.
 
 This repository implements a sample webhook and an Android application:
 
-* webhook - a NodeJs/Express application that receives bill ready events from the Platform and then pushes notifications to registered devices via Taplytics APIs.
-* Android Application -  An Android application that receives bill ready notifications and presents end customers a bill statement on the screen.
+* *webhook* - a NodeJs/Express application that receives bill ready events from the Platform and then pushes notifications to registered devices via Taplytics APIs.
+* *Android App* -  A mobile App that receives bill ready notifications and presents customers statement on mobile screens.
 
 #### Build Android Application
 1. Download and install the latest Android Studio 3.
