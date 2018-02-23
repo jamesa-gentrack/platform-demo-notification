@@ -7,13 +7,13 @@ The use case is:
 
 1. A bill is generated in a Gentrack core system, Velocity or Junifer.
 2. A event is triggered and published to the Gentrack Platform.
-3. The Gentrack Platform publishes the event to a registered customer webhook.
+3. The Gentrack Platform publishes the event to a registered *webhook*.
 4. The webhook sends a statement to an individual customer via a push notification to an Android app.
 
-This repository contains:
+This repository implements a sample webhook and an Android application:
 
-1. webhook - a sample NodeJs/Express application that receives bill ready events from the Platform and then sends push notifications to registered devices via Taplytics APIs.
-2. Android App -  A sample Android application that registers and receives bill ready notifications and displays a bill statement.
+* webhook - a NodeJs/Express application that receives bill ready events from the Platform and then pushes notifications to registered devices via Taplytics APIs.
+* Android Application -  An Android application that receives bill ready notifications and presents end customers a bill statement on the screen.
 
 #### Build Android Application
 1. Download and install the latest Android Studio 3.
@@ -39,7 +39,7 @@ This repository contains:
 8. Set up [Google Push Certificates](https://taplytics.com/docs/guides/push-notifications/google-push-certificates) for the APP.
 9. Restart the Android App.
 
-### Deploy webhook to Heroku
+### Deploy Webhook to Heroku
 * Deployment
     1. Clone the repository and cd into the directory
     2. Download heroku cli and deploy the application. See [Deploying Node.js Apps on Heroku](https://devcenter.heroku.com/articles/deploying-nodejs#deploy-your-application-to-heroku)
@@ -56,7 +56,7 @@ This repository contains:
     * `heroku config:set TAPLYTICS_API_TOKEN="TAPLYTICS REST API PRIVATE KEY"`
 
 
-#### Send notifications from Developer Portal
+#### Send Notifications from Developer Portal
 1. Create a new application in Developer.
 2. Set the end point to the Heroku webhook, e.g, `http://myapp.herokuapp.com/webhook`.
 3. Send a test event.
