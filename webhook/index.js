@@ -14,7 +14,7 @@ if (process.env.HEROKU_APP_NAME) {
 // the public key used for verifying the signature signed by the corresponding private key.
 const publicKey = process.env.PUBLIC_KEY;
 // the API key to call API key to publish push notification
-const taplytics_api_token = process.env.TsAPLYTICS_API_TOKEN;
+const taplytics_api_token = process.env.TAPLYTICS_API_TOKEN;
 /*
 A signature contains a time stamp and a hash value, in this format:
 t=1504742008,v=dVLlVxcw1O/7m4GxeeaxyBxsj9AJpTeSmrdCywD2VsvIxRsB7AqBS9MNscuMYCuXs2/0TUnXgkzVPvWGQw73Jg==
