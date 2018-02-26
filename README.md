@@ -41,20 +41,11 @@ This repository implements a sample *webhook*  and an Android application:
 
 ### Deploy Webhook to Heroku
 * Deployment
-    1. Clone the repository and cd into the directory
-    2. Download heroku cli and deploy the application. See [Deploying Node.js Apps on Heroku](https://devcenter.heroku.com/articles/deploying-nodejs#deploy-your-application-to-heroku)
-    ```
-        heroku login
-        heroku create
-        git push heroku master
-    ```
+    1. Click the `Deploy to Heroku` button to start the process.
+    [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/jamesa-gentrack/platform-demo-notification)
+    2. On the next page, enter your application's public key and Taplytics API key.
     3. Test the URL in a browser, e.g, `http://my-app.herokuapp.com`.
     The webhook URL will be `http://myapp.herokuapp.com/webhook`
-* Environment variables:
-    * `heroku config:add PUBLIC_KEY="$(cat ~/pubkey.pem)"`
-        * pubkey.pem` is a text file containing the public key for the application which can be obtained from the platform developer portal.
-    * `heroku config:set TAPLYTICS_API_TOKEN="TAPLYTICS REST API PRIVATE KEY"`
-
 
 #### Send Notifications from Developer Portal
 1. Create a new application in Developer.
