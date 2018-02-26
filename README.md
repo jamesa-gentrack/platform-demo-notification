@@ -41,9 +41,9 @@ This repository implements a sample *webhook*  and an Android application:
 
 ### Deploy Webhook to Heroku
 * Deployment
-    1. Click the `Deploy to Heroku` button to start the process.
-
     [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/jamesa-gentrack/platform-demo-notification)
+
+    1. Click the `Deploy to Heroku` button to start the process.
     2. On the next page, enter your application's public key and Taplytics API key.
     3. Test the URL in a browser, e.g, `http://my-app.herokuapp.com`.
     The webhook URL will be `http://myapp.herokuapp.com/webhook`
