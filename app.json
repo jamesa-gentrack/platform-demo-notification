@@ -3,6 +3,11 @@
   "description": "Platform demo app that uses Taplytics to notify customers of new bills.",
   "image": "heroku/nodejs",
   "repository": "https://github.com/jamesa-gentrack/platform-demo-notification.git",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
   "keywords": ["nodejs", "express", "taplytics", "example-app"],
   "logo": "https://www.gentrack.com/wp-content/themes/gentrack/img/gentrack-logo.svg",
   "env": {
