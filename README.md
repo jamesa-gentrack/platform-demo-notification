@@ -41,6 +41,7 @@ This repository implements a sample *webhook*  and an Android application:
 
 ### Deploy Webhook to Heroku
 * Deployment
+
     [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/jamesa-gentrack/platform-demo-notification)
 
     1. Click the `Deploy to Heroku` button to start the process.
