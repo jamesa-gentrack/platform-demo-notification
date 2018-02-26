@@ -1,6 +1,6 @@
 {
-  "name": "Platform Demo - Bill Notification",
-  "description": "Demo app that uses Taplytics to notify customers of new bills.",
+  "name": "Demo - Bill Notification",
+  "description": "Platform demo app that uses Taplytics to notify customers of new bills.",
   "image": "heroku/nodejs",
   "repository": "https://github.com/jamesa-gentrack/platform-demo-notification.git",
   "keywords": ["nodejs", "express", "taplytics", "example-app"],
