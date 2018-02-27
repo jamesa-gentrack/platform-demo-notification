@@ -17,8 +17,5 @@
     "TAPLYTICS_API_TOKEN": {
       "description": "Taplytics API key"
     }
-  },
-  "scripts": {
-    "postdeploy": "heroku labs:enable runtime-dyno-metadata"
   }
 }
