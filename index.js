@@ -5,13 +5,6 @@ const fetch = require('node-fetch');
 
 const PORT = process.env.PORT || 5000;
 
-// the URL to an image to send with a notification.  This will only be set when running on Heroku
-var pushImageUrl;
-if (process.env.HEROKU_APP_NAME) {
-    pushImageUrl = 'https://' + process.env.HEROKU_APP_NAME + '.herokuapp.com/Energise.png';
-    console.info("Use image " + pushImageUrl);
-}
-
 // the public key used for verifying the signature signed by the corresponding private key.
 const publicKey = process.env.PUBLIC_KEY;
 // the API key to call API key to publish push notification
@@ -67,8 +60,7 @@ app.use(express.static('public'))
 app.use(bodyParser.json({
     verifyCallback,
 }));
-app.get('/', (req, res) => res.send('Gentrack Platform Push Notification Demo - webhook')
-)
+app.get('/', (req, res) => res.send('Gentrack Platform Push Notification Demo - webhook'));
 app.post('/webhook', (req, res) => {
     console.info('Received billReady: ', req.body);
 
@@ -96,13 +88,10 @@ app.post('/webhook', (req, res) => {
         recentConsumptions: recentConsumptions
     }, req.body.data);
 
-    var image = undefined;
-    if (pushImageUrl !== undefined) {
-        image = {
-            'url': pushImageUrl,
-            'tl_cdn': true
-        }
-    }
+    var image = {
+        'url': 'https://'+ req.get('host') + '/Energise.png',
+        'tl_cdn': true
+    };
 
     const pushPayload = {
         'name': 'BillReadyPushNotification',
