@@ -46,12 +46,12 @@ This repository implements a sample *webhook*  and an Android application:
 
     1. Click the `Deploy to Heroku` button to start the process.
     2. On the next page, enter your application's public key and Taplytics API key.
-    3. Test the URL in a browser, e.g, `http://my-app.herokuapp.com`.
-    The webhook URL will be `http://myapp.herokuapp.com/webhook`
+    3. Test the URL in a browser, e.g, `http://(app-name).herokuapp.com`.
+    The webhook URL will be `http://(app-name).herokuapp.com/webhook`
 
 #### Send Notifications from Developer Portal
 1. Create a new application in Developer.
-2. Set the end point to the Heroku webhook, e.g, `http://myapp.herokuapp.com/webhook`.
+2. Set the end point to the Heroku webhook, e.g, `http://(app-name).herokuapp.com/webhook`.
 3. Send a test event.
 
 ### Disclaimer

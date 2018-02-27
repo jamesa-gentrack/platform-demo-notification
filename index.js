@@ -128,6 +128,6 @@ app.post('/webhook', (req, res) => {
         res.status(500).send(err);
     });
 });
-app.listen(PORT, () = > {
+app.listen(PORT, () => {
     console.log('Webhook started on ' + PORT);
 });
