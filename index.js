@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 5000;
 var pushImageUrl;
 if (process.env.HEROKU_APP_NAME) {
     pushImageUrl = 'https://' + process.env.HEROKU_APP_NAME + '.herokuapp.com/Energise.png';
+    console.info("Use image " + pushImageUrl);
 }
 
 // the public key used for verifying the signature signed by the corresponding private key.
@@ -55,8 +56,7 @@ const verifySignature = (signature, publicKey, payload) => {
 };
 const verifyCallback = (req, res, buf, encoding) => {
     if (!publicKey) {
-        // throw new Error('Unable to verify: public key is not available');
-        return;
+        throw new Error('Unable to verify: public key is not available');
     }
     const signature = req.headers['x-payload-signature'];
     verifySignature(signature, publicKey, buf.toString());
