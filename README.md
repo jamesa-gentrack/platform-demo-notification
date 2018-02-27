@@ -5,60 +5,53 @@ This repository demonstrates integration between [Gentrack Platform](https://hel
 
 The use case is:
 
-1. A bill is generated in a Gentrack core system, Velocity or Junifer.
-2. A event is triggered and published to the Gentrack Platform.
-3. The Gentrack Platform publishes the event to a registered customer webhook.
-4. The webhook sends a statement to an individual customer via a push notification to an Android app.
+1. A bill is generated for a customer in a Gentrack core system, Velocity or Junifer.
+2. The core system triggers an event and publishes it to the Gentrack Platform.
+3. The Gentrack Platform then publishes the event to a registered *webhook*.
+4. The webhook sends a push notification to the customer, through an *Android app* running on the customer's phone.
+5. The customer receives and taps the notification to view the bill statement on his or her phone.
 
-This repository contains:
+This repository implements a sample *webhook*  and an Android application:
 
-1. webhook - a sample NodeJs/Express application that receives bill ready events from the Platform and then sends push notifications to registered devices via Taplytics APIs.
-2. Android App -  A sample Android application that registers and receives bill ready notifications and displays a bill statement.
+* *webhook* - a NodeJs/Express application that receives bill events from the Platform and then pushes notifications to registered devices using Taplytics APIs.
+* *Android App* -  A mobile app that receives push notifications and presents statement on screen.
 
 #### Build Android Application
-1. Download and install the latest Android Studio 3.
-2. Sign up an account and create an app on Taplytics.
-3. At the `SDK integration` step on the welcome page for the Taplytics App, select `Android/TV/FIre TV`. Find `TAPLYTICS ISO/ANDROID SDK KEY` and `TAPLYTICS ISO/ANDROID URL SCHEME`.
-4. Replace the values in Android app:
+1. Download and install the latest Android Studio 3.x.
+2. Clone the source code from this repository and open the project in Android Studio.
+3. Sign up a Taplytics account and create an application.  Select `Android/TV/FIre TV`, at the `SDK integration` step on the welcome page,
+4. Find values for `TAPLYTICS ISO/ANDROID SDK KEY` and `TAPLYTICS ISO/ANDROID URL SCHEME`, and replace them in the following files in the Android app:
     * TAPLYTICS ISO/ANDROID SDK KEY
     ```
-    File: app\src\main\java\io\gentrack\platformnotificationdemo\App.java
+    File: src\main\java\io\gentrack\platformnotificationdemo\App.java
     ...
     Taplytics.startTaplytics(this, "#########");
     ...
     ```
     * TAPLYTICS ISO/ANDROID URL SCHEME
     ```
-    File: app\src\main\AndroidManifest.xml
+    File: src\main\AndroidManifest.xml
     ...
     <data android:scheme="##########" />
     ```
-5. Build and run the application.
-6. When testing the application in an Emulator, it requies an image with `API level = 24 and Target = Android 7.0(Google APIs)`. In addition, you need to log in to a google account in the emulator in order to receive notifications.
-7. Open the App on Taplytics. It should now display to a dashboard.
-8. Set up [Google Push Certificates](https://taplytics.com/docs/guides/push-notifications/google-push-certificates) for the APP.
-9. Restart the Android App.
+5. Build and run the application. To test the application in an Emulator, you must create an image with `API level = 24 and Target = Android 7.0(Google APIs)`. In addition, you must add and log in to a Google account in the Emulator in order to receive push notifications.
+6. When the application is running, it will connect to Taplytics to complete integration setup.
+8. Set up [Google Push Certificates](https://taplytics.com/docs/guides/push-notifications/google-push-certificates) from the dashboard on Typlystics.
+9. Restart the Android application and it is ready to receive push notifications.
 
-### Deploy webhook to Heroku
+### Deploy Webhook to Heroku
 * Deployment
-    1. Clone the repository and cd into the directory
-    2. Download heroku cli and deploy the application. See [Deploying Node.js Apps on Heroku](https://devcenter.heroku.com/articles/deploying-nodejs#deploy-your-application-to-heroku)
-    ```
-        heroku login
-        heroku create
-        git push heroku master
-    ```
-    3. Test the URL in a browser, e.g, `http://my-app.herokuapp.com`.
-    The webhook URL will be `http://myapp.herokuapp.com/webhook`
-* Environment variables:
-    * `heroku config:add PUBLIC_KEY="$(cat ~/pubkey.pem)"`
-        * pubkey.pem` is a text file containing the public key for the application which can be obtained from the platform developer portal.
-    * `heroku config:set TAPLYTICS_API_TOKEN="TAPLYTICS REST API PRIVATE KEY"`
 
+    [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/jamesa-gentrack/platform-demo-notification)
 
-#### Send notifications from Developer Portal
+    1. Click the `Deploy to Heroku` button to start the process.
+    2. On the next page, enter your application's public key and Taplytics API key.
+    3. Test the URL in a browser, e.g, `http://(app-name).herokuapp.com`.
+    The webhook URL will be `http://(app-name).herokuapp.com/webhook`
+
+#### Send Notifications from Developer Portal
 1. Create a new application in Developer.
-2. Set the end point to the Heroku webhook, e.g, `http://myapp.herokuapp.com/webhook`.
+2. Set the end point to the Heroku webhook, e.g, `http://(app-name).herokuapp.com/webhook`.
 3. Send a test event.
 
 ### Disclaimer

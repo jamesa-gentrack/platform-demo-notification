@@ -5,12 +5,6 @@ const fetch = require('node-fetch');
 
 const PORT = process.env.PORT || 5000;
 
-// the URL to an image to send with a notification.  This will only be set when running on Heroku
-var pushImageUrl;
-if (process.env.HEROKU_APP_NAME) {
-    pushImageUrl = 'https://' + process.env.HEROKU_APP_NAME + '.herokuapp.com/Energise.png';
-}
-
 // the public key used for verifying the signature signed by the corresponding private key.
 const publicKey = process.env.PUBLIC_KEY;
 // the API key to call API key to publish push notification
@@ -37,12 +31,14 @@ const verifySignature = (signature, publicKey, payload) => {
     if (isNaN(t)) {
         throw new Error('Invalid timestamp');
     }
-    const now = new Date().getTime();
-    if (t * 1000 >= now) {
-        throw new Error('Timestamp validation error');
-    }
+    // reject signature if it's too old, decide what is too 'old'
+    // const now = new Date().getTime();
+    // if (t * 1000 >= now) {
+    //     throw new Error('Timestamp validation error');
+    // }
 
     const verifier = crypto.createVerify('sha512');
+    verifier.update(t + ".");
     verifier.update(payload);
     const sigToVerify = digest.substr(2);
     if (!verifier.verify(publicKey, sigToVerify)) {
@@ -53,8 +49,7 @@ const verifySignature = (signature, publicKey, payload) => {
 };
 const verifyCallback = (req, res, buf, encoding) => {
     if (!publicKey) {
-        // throw new Error('Unable to verify: public key is not available');
-        return;
+        throw new Error('Unable to verify: public key is not available');
     }
     const signature = req.headers['x-payload-signature'];
     verifySignature(signature, publicKey, buf.toString());
@@ -65,8 +60,7 @@ app.use(express.static('public'))
 app.use(bodyParser.json({
     verifyCallback,
 }));
-app.get('/', (req, res) => res.send('Gentrack Platform Push Notification Demo - webhook')
-)
+app.get('/', (req, res) => res.send('Gentrack Platform Push Notification Demo - webhook'));
 app.post('/webhook', (req, res) => {
     console.info('Received billReady: ', req.body);
 
@@ -94,13 +88,10 @@ app.post('/webhook', (req, res) => {
         recentConsumptions: recentConsumptions
     }, req.body.data);
 
-    var image = undefined;
-    if (pushImageUrl !== undefined) {
-        image = {
-            'url': pushImageUrl,
-            'tl_cdn': true
-        }
-    }
+    var image = {
+        'url': 'https://'+ req.get('host') + '/Energise.png',
+        'tl_cdn': true
+    };
 
     const pushPayload = {
         'name': 'BillReadyPushNotification',
@@ -126,6 +117,6 @@ app.post('/webhook', (req, res) => {
         res.status(500).send(err);
     });
 });
-app.listen(PORT, () = > {
+app.listen(PORT, () => {
     console.log('Webhook started on ' + PORT);
 });
