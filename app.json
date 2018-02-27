@@ -17,5 +17,8 @@
     "TAPLYTICS_API_TOKEN": {
       "description": "Taplytics API key"
     }
+  },
+  "scripts": {
+    "postdeploy": "npm install"
   }
 }

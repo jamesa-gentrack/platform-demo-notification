@@ -37,12 +37,14 @@ const verifySignature = (signature, publicKey, payload) => {
     if (isNaN(t)) {
         throw new Error('Invalid timestamp');
     }
-    const now = new Date().getTime();
-    if (t * 1000 >= now) {
-        throw new Error('Timestamp validation error');
-    }
+    // reject signature if it's too old, decide what is too 'old'
+    // const now = new Date().getTime();
+    // if (t * 1000 >= now) {
+    //     throw new Error('Timestamp validation error');
+    // }
 
     const verifier = crypto.createVerify('sha512');
+    verifier.update(t + ".");
     verifier.update(payload);
     const sigToVerify = digest.substr(2);
     if (!verifier.verify(publicKey, sigToVerify)) {
