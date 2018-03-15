@@ -11,7 +11,7 @@
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Replace with keys from your Taplystic account -->
-    <string name="taplytics_android_sdk_key">****</string>
-    <string name="taplytics_android_url_scheme">****</string>
+    <string name="taplytics_android_sdk_key">#####</string>
+    <string name="taplytics_android_url_scheme">tl-####</string>
 
 </resources>

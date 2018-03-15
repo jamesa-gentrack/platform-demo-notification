@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/default_margin"
                 android:gravity="center"
-                android:text="Your bill is ready"
+                android:text="Your bill is ready!"
                 android:textColor="@color/red"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -96,7 +96,7 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:gravity="center"
-            android:text="View&#10;Details"
+            android:text="More&#10;Details"
             android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
             android:textColor="@color/white" />
     </LinearLayout>

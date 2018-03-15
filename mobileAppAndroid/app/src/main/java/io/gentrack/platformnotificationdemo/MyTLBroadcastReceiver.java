@@ -142,8 +142,8 @@ public class MyTLBroadcastReceiver extends TLGcmBroadcastReceiver {
                 .setPriority(Notification.PRIORITY_MAX)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setLights(Color.BLUE, 5000, 5000)
-                .setCustomContentView(customViewBig)
-                //.setCustomBigContentView(customViewBig)
+                .setCustomContentView(customViewSmall)
+                .setCustomBigContentView(customViewBig)
                 .setStyle(new Notification.DecoratedCustomViewStyle())
                 .build();
     }
