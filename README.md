@@ -5,17 +5,15 @@
 Rich push notification is a push notification with a rich media attachment such as images, videos, audio, and interactive buttons.
 Compared to a normal notification, a rich push notification drives significantly more engagement with mobile users. [REFERENCE?]
 
-
-This project demonstrates the integration between [Gentrack Platform](https://help.gentrack.com/platform) and [Taplytics](https://taplytics.com/) in providing a rich push notification experience to mobile users.  The user case it demonstrates is as follow:
+This project demonstrates the integration between [Gentrack Platform](https://help.gentrack.com/platform) and [Taplytics](https://taplytics.com/) in providing a rich push notification experience to mobile users. The user case it demonstrates is as follow:
 1. A bill is generated for a customer in a Gentrack core system, Velocity or Junifer.
 2. The core system trigers and publishes an event to the Gentrack Platform.
 3. The Gentrack Platform then sends the event to a registered *webhook*.
 4. The webhook sends a rich push notification a utility customer's mobile device.
 
-This project includes sample implementations of a *webhook* and an Android App.
-
-* *webhook* - a NodeJs/Express application that receives bill events from the Platform and then pushes notifications to registered devices using Taplytics APIs.
-* *Android App* -  A mobile App that receives push notifications from Taplytics and presents bill information on a user's phone.
+This demonistration provides a sample implementation of:
+* *webhook* - a NodeJs/Express application that receives bill-ready events from the Platform and calls Taplytics APIs to send push notifications to end users.
+* *Android App* -  A mobile App that receives push notifications and presents a rich bill notification on a utility customer's phone.
 
 ### Run the Demo
 
@@ -31,21 +29,21 @@ To build and run this demo, you will need:
 #### Create a Taplytics APP
 1. Log in to Taplytics. Select *Add a New Project*. Choose a project name and click on *Create App*.
 2. Select *Android/TV/FIre TV* on the *SDK integration* page.
-3. Find Android SDK key and URL scheme for your application on the page. You will need to provide them to the Android App in the next step.
-```
-....
-# Android SDK key
-Taplytics.startTaplytics(this, "6e9baefa4c41c829f327887f2401a43a48e372ce");
-...
-# Android URL scheme
-<data android:scheme="tl-06ba13aa"/>
-...
-```
+3. Take a note of the Android SDK key and URL scheme for the new application, which you will provide to the Android App in the next step.
+
 ### Build Android Application
 1. Clone or download the demo project to a local directory.
-2. Open Android Studio. Choose *Open an Existing Android Studio Project*. Navigate and Open the directory *mobileAppAndroid* in the project.
-3. Open *mobileAppAndroid\app\src\main\res\values\strings.xml* and update *taplytics_android_sdk_key* and *taplytics_android_sdk_key* with the keys of your Taplytics application, obtained in the previous step.
-4. Build and run the application in the emulator. The Android App will connect to Taplytics, allowing it to finsh *SDK integration* for your application.
+2. Open Android Studio. Choose *Open an Existing Android Studio Project*. Navigate and open the directory *mobileAppAndroid* in the project.
+3. Open *mobileAppAndroid\app\src\main\res\values\strings.xml* and update *taplytics_android_sdk_key* and *taplytics_android_sdk_key* with values obtained in the previous step.
+4. Build and run the app in an Android emulator. The Android app will connect to Taplytics once running, to complete the *SDK integration* step for the Typlystics application.
+
+```
+....
+    <!-- TODO: Replace with keys from your Taplystic account -->
+    <string name="taplytics_android_sdk_key">79084317b3c0a5e8fc2ccf731a1fd433d76f0a72</string>
+    <string name="taplytics_android_url_scheme">tl-55bb6027</string>
+...
+```
 
 ### Finish Configuration
 1. Log in to [Firebase](https://firebase.google.com/) using your Google account.
