@@ -12,7 +12,7 @@ In this demo we connect the Gentrack Platform to an integration layer, represent
 
 1. A bill is generated for a customer in a Gentrack core system.
 2. The core system triggers and publishes an event to the Gentrack Platform.
-3. The Gentrack Platform then sends the event to a registered webhook � a Heroku application that receives bill events from the Platform and then pushes notifications to registered devices using Taplytics APIs.
+3. The Gentrack Platform then sends the event to a registered webhook - a Heroku application that receives bill events from the Platform and then pushes notifications to registered devices using Taplytics APIs.
 
 As you think about your production deployment you might choose other methods for integration (e.g. event bus, workflow-based integration layer, etc...). You will also want to consider how to secure secrets, such as API keys, in your integration layer.
 
